@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="CoursesManagement.Common">
+      <HintPath>..\..\..\CoursesManagement.Common\CoursesManagement.Common\CoursesManagement.Common\bin\Debug\netcoreapp3.1\CoursesManagement.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
