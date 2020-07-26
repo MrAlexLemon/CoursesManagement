@@ -1,4 +1,5 @@
 ﻿using CoursesManagement.Common.Messages;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace CoursesManagement.Services.Identity.Messages.Commands
         public string Email { get; }
         public string Password { get; }
 
+        [JsonConstructor]
         public SignIn(string email, string password)
         {
             Email = email;

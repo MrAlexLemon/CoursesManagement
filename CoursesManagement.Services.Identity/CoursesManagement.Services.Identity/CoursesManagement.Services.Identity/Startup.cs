@@ -42,6 +42,7 @@ namespace CoursesManagement.Services.Identity
                     .AddControllersAsServices();*/
 
             services.AddCustomMvc();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddJwt();
             services.AddRedis();
             services.AddCors(options =>
@@ -86,15 +87,15 @@ namespace CoursesManagement.Services.Identity
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseAllForwardedHeaders();
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseAccessTokenValidator();
+            app.UseAuthorization();
             app.UseServiceId();
             app.UseRabbitMq();
-
-            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

@@ -35,6 +35,7 @@ namespace CoursesManagement.Services.Identity.Domain
             {
                 throw new CoursesManagementException(ExceptionCodes.RefreshTokenAlreadyRevoked, $"Refresh token '{Id}' was already revoked at '{RevokeAt}'.");
             }
+            RevokeAt = DateTime.UtcNow;
         }
         private static string CreateToken(User user, IPasswordHasher<User> passwordHasher)
             => passwordHasher.HashPassword(user, Guid.NewGuid().ToString("N"))

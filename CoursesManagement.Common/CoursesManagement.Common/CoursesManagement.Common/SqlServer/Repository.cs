@@ -37,7 +37,10 @@ namespace CoursesManagement.Common.SqlServer
 			=> await Entity.AsQueryable().Where(predicate).PaginateAsync(query);
 
 		public async Task AddAsync(TEntity entity)
-			=> await Entity.AddAsync(entity);
+		{
+			Entity.Add(entity);
+			await Context.SaveChangesAsync();
+		}
 
 		public async Task UpdateAsync(TEntity entity)
 		{

@@ -34,7 +34,7 @@ namespace CoursesManagement.Services.Identity.Domain
                 throw new CoursesManagementException(ExceptionCodes.InvalidEmail, $"Invalid email: '{email}'.");
             }
 
-            if(Domain.Role.IsValid(role))
+            if(!Domain.Role.IsValid(role))
             {
                 throw new CoursesManagementException(ExceptionCodes.InvalidRole, $"Invalid role: '{role}'.");
             }

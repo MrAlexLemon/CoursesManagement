@@ -1,4 +1,5 @@
 ﻿using CoursesManagement.Common.Messages;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace CoursesManagement.Services.Identity.Messages.Commands
         public string Password { get; }
         public string Role { get; }
 
+        [JsonConstructor]
         public SignUp(Guid id, string email, string password, string role)
         {
             Id = id;

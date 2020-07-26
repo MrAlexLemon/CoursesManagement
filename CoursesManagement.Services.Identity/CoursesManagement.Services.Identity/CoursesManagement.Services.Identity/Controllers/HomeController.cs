@@ -8,19 +8,10 @@ using System.Threading.Tasks;
 
 namespace CoursesManagement.Services.Identity.Controllers
 {
-    [ApiController]
+    [Route("")]
     public class HomeController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        public HomeController(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-        [HttpGet("test")]
-        public async Task<IActionResult> Get()
-        {
-            // Some logic
-            return Ok();
-        }
+        [HttpGet]
+        public IActionResult Get() => Ok("Course manager Identity Service");
     }
 }
