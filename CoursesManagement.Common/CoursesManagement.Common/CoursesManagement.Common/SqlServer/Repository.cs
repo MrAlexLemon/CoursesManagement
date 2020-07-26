@@ -16,6 +16,7 @@ namespace CoursesManagement.Common.SqlServer
 
 		public Repository(DbContext database)
 		{
+			Context = database;
 			Entity = database.Set<TEntity>();
 		}
 

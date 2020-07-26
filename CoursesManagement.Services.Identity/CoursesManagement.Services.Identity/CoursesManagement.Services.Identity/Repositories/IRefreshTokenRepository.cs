@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CoursesManagement.Services.Identity.Repositories
 {
-    public interface IRefreshTokenRepository<TEntity> where TEntity : IIdentifiable
+    public interface IRefreshTokenRepository
     {
         Task<RefreshToken> GetAsync(string token);
         Task AddAsync(RefreshToken token);

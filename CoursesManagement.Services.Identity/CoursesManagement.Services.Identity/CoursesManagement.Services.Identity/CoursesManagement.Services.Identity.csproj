@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="CoursesManagement.Common">
       <HintPath>..\..\..\CoursesManagement.Common\CoursesManagement.Common\CoursesManagement.Common\bin\Debug\netcoreapp3.1\CoursesManagement.Common.dll</HintPath>
     </Reference>
