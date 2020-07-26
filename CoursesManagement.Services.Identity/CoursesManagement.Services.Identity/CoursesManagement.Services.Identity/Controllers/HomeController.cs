@@ -19,7 +19,7 @@ namespace CoursesManagement.Services.Identity.Controllers
         [HttpGet("test")]
         public async Task<IActionResult> Get()
         {
-            await _userRepository.AddAsync(new User(Guid.NewGuid(),"email","user"));
+            // Some logic
             return Ok();
         }
     }

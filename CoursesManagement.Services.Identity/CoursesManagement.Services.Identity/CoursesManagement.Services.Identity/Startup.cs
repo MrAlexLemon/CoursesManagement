@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using CoursesManagement.Common.Auth;
+using CoursesManagement.Common.ErrorHandler;
+using CoursesManagement.Common.RabbitMq;
+using CoursesManagement.Common.Redis;
 using CoursesManagement.Common.SqlServer;
 using CoursesManagement.Services.Identity.Domain;
 using CoursesManagement.Services.Identity.EF;
 using CoursesManagement.Services.Identity.Repositories;
+using CoursesManagement.Services.Identity.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,20 +38,35 @@ namespace CoursesManagement.Services.Identity
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                    .AddControllersAsServices();
+            /*services.AddMvc()
+                    .AddControllersAsServices();*/
 
+            services.AddCustomMvc();
+            services.AddJwt();
+            services.AddRedis();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", cors =>
+                        cors.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+            });
 
-            var poco = new SqlSettings();
-            Configuration.GetSection("sql").Bind(poco);
+            var sqlOptions = new SqlSettings();
+            Configuration.GetSection("sql").Bind(sqlOptions);
             services.AddDbContext<IdentityContext>(options =>
-                 options.UseSqlServer(poco.ConnectionString)
+                 options.UseSqlServer(sqlOptions.ConnectionString)
              );
 
+
+            services.AddSingleton<IJwtHandler, JwtHandler>();
+
             var builder = new ContainerBuilder();
+
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                     .AsImplementedInterfaces();
             builder.Populate(services);
+            builder.AddRabbitMq();
 
             //builder.RegisterContext<IdentityContext>();
 
@@ -61,10 +81,18 @@ namespace CoursesManagement.Services.Identity
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.EnvironmentName == "local")
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
+            app.UseAllForwardedHeaders();
+            app.UseErrorHandler();
+            app.UseAuthentication();
+            app.UseAccessTokenValidator();
+            app.UseServiceId();
+            app.UseRabbitMq();
 
             app.UseRouting();
 
