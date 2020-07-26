@@ -11,6 +11,7 @@ using CoursesManagement.Common.ErrorHandler;
 using CoursesManagement.Common.RabbitMq;
 using CoursesManagement.Common.Redis;
 using CoursesManagement.Common.SqlServer;
+using CoursesManagement.Common.Swagger;
 using CoursesManagement.Services.Identity.Domain;
 using CoursesManagement.Services.Identity.EF;
 using CoursesManagement.Services.Identity.Repositories;
@@ -42,6 +43,7 @@ namespace CoursesManagement.Services.Identity
                     .AddControllersAsServices();*/
 
             services.AddCustomMvc();
+            services.AddSwaggerDocs();
             services.AddControllers().AddNewtonsoftJson();
             services.AddJwt();
             services.AddRedis();
@@ -90,6 +92,7 @@ namespace CoursesManagement.Services.Identity
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseAllForwardedHeaders();
+            app.UseSwaggerDocs();
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseAccessTokenValidator();
