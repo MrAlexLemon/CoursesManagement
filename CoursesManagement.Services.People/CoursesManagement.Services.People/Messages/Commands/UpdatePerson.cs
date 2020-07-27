@@ -16,6 +16,10 @@ namespace CoursesManagement.Services.People.Messages.Commands
         public string Country { get; }
         public DateTime CreatedAt { get; }
 
+        public UpdatePerson()
+        {
+
+        }
         public UpdatePerson(Guid id, string email, string firstName,
             string lastName, string address, string country)
         {

@@ -10,6 +10,10 @@ namespace CoursesManagement.Services.People.Messages.Commands
     {
         public Guid Id { get; }
 
+        public DeletePerson()
+        {
+
+        }
         public DeletePerson(Guid id)
         {
             Id = id;

@@ -32,6 +32,10 @@ namespace CoursesManagement.Services.People
         public IConfiguration Configuration { get; }
         public Autofac.IContainer Container { get; private set; }
 
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -95,13 +99,13 @@ namespace CoursesManagement.Services.People
                 .SubscribeCommand<DeletePerson>(onError: (c, e) =>
                     new DeletePersonRejected(c.Id, e.Message, e.Code))
                 .SubscribeCommand<JoinCourse>(onError: (c, e) =>
-                    new JoinCourseRejected(c.UserId, e.Message, e.Code))
-                .SubscribeEvent<SignedUp>(@namespace: "identity")
+                    new JoinCourseRejected(c.UserId, e.Message, e.Code));
+                /*.SubscribeEvent<SignedUp>(@namespace: "identity")
                 .SubscribeEvent<CourseCreated>(@namespace: "courses")
                 .SubscribeEvent<CourseUpdated>(@namespace: "courses")
                 .SubscribeEvent<CourseDeleted>(@namespace: "courses")
                 .SubscribeEvent<CourseCancelled>(@namespace: "courses")
-                .SubscribeEvent<CourseFinished>(@namespace: "courses");
+                .SubscribeEvent<CourseFinished>(@namespace: "courses");*/
 
             app.UseEndpoints(endpoints =>
             {
